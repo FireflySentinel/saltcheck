@@ -1,0 +1,33 @@
+{
+  "locale": "en",
+  "patterns": [
+    { "term": "thank you", "tier": "mild" },
+    { "term": "thanks", "tier": "mild" },
+    { "term": "thx", "tier": "mild" },
+    { "term": "ty", "tier": "mild" },
+    { "term": "amazing", "tier": "moderate" },
+    { "term": "awesome", "tier": "moderate" },
+    { "term": "fantastic", "tier": "moderate" },
+    { "term": "wonderful", "tier": "moderate" },
+    { "term": "brilliant", "tier": "moderate" },
+    { "term": "incredible", "tier": "moderate" },
+    { "term": "love it", "tier": "severe" },
+    { "term": "love this", "tier": "severe" },
+    { "term": "exactly what i needed", "tier": "severe" },
+    { "term": "perfect", "tier": "moderate" },
+    { "term": "great job", "tier": "moderate" },
+    { "term": "well done", "tier": "moderate" },
+    { "term": "nice work", "tier": "moderate" },
+    { "term": "good job", "tier": "moderate" },
+    { "term": "really helpful", "tier": "moderate" },
+    { "term": "super helpful", "tier": "severe" },
+    { "term": "so helpful", "tier": "moderate" },
+    { "term": "you rock", "tier": "severe" },
+    { "term": "this is great", "tier": "moderate" },
+    { "term": "much appreciated", "tier": "mild" },
+    { "term": "impressed", "tier": "moderate" },
+    { "term": "blown away", "tier": "severe" },
+    { "term": "life saver", "tier": "severe" },
+    { "term": "game changer", "tier": "severe" }
+  ]
+}

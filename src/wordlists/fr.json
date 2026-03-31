@@ -1,0 +1,29 @@
+{
+  "locale": "fr",
+  "patterns": [
+    { "term": "merde", "tier": "severe" },
+    { "term": "putain", "tier": "severe" },
+    { "term": "bordel", "tier": "severe" },
+    { "term": "connard", "tier": "severe" },
+    { "term": "connasse", "tier": "severe" },
+    { "term": "enculer", "tier": "severe" },
+    { "term": "c'est nul", "tier": "mild" },
+    { "term": "c'est nulle", "tier": "mild" },
+    { "term": "nul à chier", "tier": "severe" },
+    { "term": "fait chier", "tier": "severe" },
+    { "term": "dégueulasse", "tier": "moderate" },
+    { "term": "horrible", "tier": "mild" },
+    { "term": "affreux", "tier": "mild" },
+    { "term": "lamentable", "tier": "mild" },
+    { "term": "n'importe quoi", "tier": "moderate" },
+    { "term": "ridicule", "tier": "mild" },
+    { "term": "foutaise", "tier": "moderate" },
+    { "term": "foutu", "tier": "moderate" },
+    { "term": "marre", "tier": "moderate" },
+    { "term": "ras le bol", "tier": "moderate" },
+    { "term": "ça craint", "tier": "moderate" },
+    { "term": "inutile", "tier": "mild" },
+    { "term": "catastrophique", "tier": "mild" },
+    { "term": "je déteste", "tier": "moderate" }
+  ]
+}

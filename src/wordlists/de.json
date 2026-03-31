@@ -1,0 +1,29 @@
+{
+  "locale": "de",
+  "patterns": [
+    { "term": "scheisse", "tier": "severe" },
+    { "term": "scheiße", "tier": "severe" },
+    { "term": "verdammt", "tier": "moderate" },
+    { "term": "verflucht", "tier": "moderate" },
+    { "term": "arschloch", "tier": "severe" },
+    { "term": "fick dich", "tier": "severe" },
+    { "term": "was zur hölle", "tier": "moderate" },
+    { "term": "was zum teufel", "tier": "moderate" },
+    { "term": "mist", "tier": "mild" },
+    { "term": "beschissen", "tier": "severe" },
+    { "term": "kacke", "tier": "moderate" },
+    { "term": "dreck", "tier": "moderate" },
+    { "term": "drecks", "tier": "moderate" },
+    { "term": "furchtbar", "tier": "mild" },
+    { "term": "schrecklich", "tier": "mild" },
+    { "term": "grauenhaft", "tier": "mild" },
+    { "term": "katastrophe", "tier": "mild" },
+    { "term": "nutzlos", "tier": "moderate" },
+    { "term": "nervt", "tier": "moderate" },
+    { "term": "kotzt mich an", "tier": "severe" },
+    { "term": "zum kotzen", "tier": "severe" },
+    { "term": "ich hasse", "tier": "moderate" },
+    { "term": "so ein mist", "tier": "moderate" },
+    { "term": "völlig daneben", "tier": "moderate" }
+  ]
+}

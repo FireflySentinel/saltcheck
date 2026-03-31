@@ -1,0 +1,22 @@
+{
+  "locale": "zh-cn",
+  "boundary": "substring",
+  "patterns": [
+    { "term": "谢谢", "tier": "mild" },
+    { "term": "感谢", "tier": "mild" },
+    { "term": "非常感谢", "tier": "moderate" },
+    { "term": "太棒了", "tier": "severe" },
+    { "term": "太好了", "tier": "moderate" },
+    { "term": "厉害", "tier": "moderate" },
+    { "term": "好用", "tier": "mild" },
+    { "term": "很好用", "tier": "moderate" },
+    { "term": "非常好", "tier": "moderate" },
+    { "term": "完美", "tier": "moderate" },
+    { "term": "牛逼", "tier": "severe" },
+    { "term": "点赞", "tier": "mild" },
+    { "term": "优秀", "tier": "moderate" },
+    { "term": "神器", "tier": "severe" },
+    { "term": "救命", "tier": "severe" },
+    { "term": "正好需要", "tier": "severe" }
+  ]
+}

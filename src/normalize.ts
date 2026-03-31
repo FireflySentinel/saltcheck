@@ -1,5 +1,3 @@
-import { UNICODE_CONFUSABLES } from './mappings/unicode.js'
-
 /**
  * Normalize input text for matching.
  * The same pipeline is applied to wordlist patterns at compile time,
@@ -8,12 +6,12 @@ import { UNICODE_CONFUSABLES } from './mappings/unicode.js'
  * Pipeline:
  * 1. Lowercase
  * 2. Collapse runs of 3+ identical characters to 1 (preserves double letters)
- * 3. Replace unicode confusables with Latin equivalents
+ * 3. Strip apostrophes (handles French contractions like n'importe, j'adore)
  */
 export function normalize(text: string): string {
   let result = text.toLowerCase()
   result = collapseRepeats(result)
-  result = replaceConfusables(result)
+  result = stripApostrophes(result)
   return result
 }
 
@@ -27,13 +25,10 @@ function collapseRepeats(text: string): string {
 }
 
 /**
- * Replace common unicode confusables with their Latin equivalents.
- * Scoped to: Cyrillic lookalikes, fullwidth ASCII characters.
+ * Strip straight and curly apostrophes.
+ * Handles French contractions (n'importe → n importe, j'adore → j adore)
+ * and English contractions without affecting matching.
  */
-function replaceConfusables(text: string): string {
-  let result = ''
-  for (const char of text) {
-    result += UNICODE_CONFUSABLES[char] ?? char
-  }
-  return result
+function stripApostrophes(text: string): string {
+  return text.replace(/['\u2019]/g, '')
 }

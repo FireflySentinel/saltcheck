@@ -1,10 +1,10 @@
 # saltcheck
 
-A zero-dependency, multilingual frustration detector for AI/LLM product telemetry.
+A zero-dependency, multilingual sentiment detector for AI/LLM product telemetry.
 
-Inspired by how Anthropic silently detects user frustration in Claude Code via keyword matching and tags messages as `analytics_negative`. This library generalizes that pattern for any AI product.
+Inspired by how Anthropic silently detects user frustration in Claude Code via keyword matching and tags messages as `analytics_negative`. This library generalizes that pattern for any AI product, with experimental positive sentiment detection.
 
-**Not a sentiment analyzer** (use `sentiment` for that). **Not a profanity filter** (use `@2toad/profanity` for that). A frustration detector for real-time product health monitoring.
+**Not a sentiment analyzer** (use `sentiment` for that). **Not a profanity filter** (use `@2toad/profanity` for that). A keyword-based signal detector for real-time product health monitoring.
 
 ## Install
 
@@ -15,13 +15,23 @@ npm install saltcheck
 ## Usage
 
 ```typescript
-import { detectNegative } from 'saltcheck'
+import { detectNegative, detectPositive } from 'saltcheck'
 
 // Simple boolean: any match = detected (like Anthropic's approach)
 detectNegative('what the fuck is this')
 // { detected: true, matches: ['fuck', 'what the fuck'], locale: 'en', localeSupported: true, score: 1 }
 
 detectNegative('thanks, that helped!')
+// { detected: false, matches: [], locale: 'en', localeSupported: true, score: 0 }
+```
+
+### Positive detection (experimental)
+
+```typescript
+detectPositive('this is amazing, love it')
+// { detected: true, matches: ['amazing', 'love it'], locale: 'en', localeSupported: true, score: 1 }
+
+detectPositive('please fix the auth bug')
 // { detected: false, matches: [], locale: 'en', localeSupported: true, score: 0 }
 ```
 
@@ -42,7 +52,7 @@ detectNegative('他妈的什么破玩意', { locale: 'zh-cn' })
 // { detected: true, matches: ['他妈的', '什么破玩意'], ... }
 ```
 
-Chinese uses substring matching (no word boundaries needed). Single ambiguous characters like 操 and 靠 are excluded to prevent false positives with common words like 操作 (operate).
+Chinese and Japanese use substring matching (no word boundaries needed). Single ambiguous characters are excluded to prevent false positives with common compound words.
 
 ### Scored mode (experimental)
 
@@ -65,9 +75,9 @@ detectNegative('damn it', { scored: true, threshold: 0.05 })
 ### Check locale support
 
 ```typescript
-const result = detectNegative('text', { locale: 'fr' })
+const result = detectNegative('text', { locale: 'ko' })
 if (!result.localeSupported) {
-  // French is not supported yet. Detection was skipped.
+  // Korean is not supported yet. Detection was skipped.
 }
 ```
 
@@ -75,14 +85,20 @@ if (!result.localeSupported) {
 
 ### `detectNegative(text, options?)`
 
+Detect negative sentiment/frustration in text.
+
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `text` | `string` | required | The text to analyze |
-| `options.locale` | `string` | `'en'` | Locale code (`'en'`, `'es'`, `'zh-cn'`) |
+| `options.locale` | `string` | `'en'` | Locale code (see supported languages) |
 | `options.scored` | `boolean` | `false` | Enable weighted severity scoring |
 | `options.threshold` | `number` | `0.4` | Score threshold (only used in scored mode) |
 
-Returns `DetectionResult`:
+### `detectPositive(text, options?)` (experimental)
+
+Detect positive sentiment/satisfaction in text. Same API shape as `detectNegative`.
+
+### Return type: `DetectionResult`
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -94,27 +110,35 @@ Returns `DetectionResult`:
 
 ### `getSupportedLocales()`
 
-Returns an array of supported locale codes (e.g., `['en', 'es', 'zh-cn']`).
+Returns an array of supported locale codes for negative detection.
+
+### `getPositiveSupportedLocales()`
+
+Returns an array of supported locale codes for positive detection.
 
 ## How it works
 
 **Default mode (battle-tested):**
-1. Normalize input (lowercase, collapse repeated characters, replace unicode confusables)
+1. Normalize input (lowercase, collapse repeated characters, strip apostrophes)
 2. Match against ~25 curated patterns per language using word boundaries
 3. Any match = `detected: true`. That's it. Same approach Anthropic ships in production.
 
 **Scored mode (experimental):**
 Same as above, but each pattern has a severity weight (mild=0.3, moderate=0.6, severe=1.0). Score = sum of weights / 3.0, clamped to [0,1]. `detected = score >= threshold`.
 
-Patterns use word boundary matching (`\b`) to prevent false positives. "assistant" does not match "ass". "classic" does not match "ass".
+Patterns use word boundary matching (`\b`) for Latin scripts and substring matching for CJK scripts. Non-ASCII patterns (accented characters) use whitespace-based boundaries. "assistant" does not match "ass". "classic" does not match "ass".
 
 ## Supported languages
 
-| Locale | Patterns | Matching | Status |
-|--------|----------|----------|--------|
-| `en` | 34 | Word boundary (`\b`) | Stable — 1:1 with Anthropic's `matchesNegativeKeyword` |
-| `es` | 26 | Word boundary (`\b`) | Stable |
-| `zh-cn` | 26 | Substring | Stable |
+| Locale | Negative | Positive | Matching | Status |
+|--------|----------|----------|----------|--------|
+| `en` | 34 | 28 | Word boundary | Stable |
+| `es` | 26 | 18 | Word boundary | Stable |
+| `zh-cn` | 26 | 16 | Substring | Stable |
+| `ja` | 25 | 16 | Substring | Experimental |
+| `fr` | 24 | 17 | Word boundary | Experimental |
+| `ru` | 24 | 18 | Substring | Experimental |
+| `de` | 24 | 18 | Word boundary | Experimental |
 
 ## Design decisions
 

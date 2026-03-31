@@ -1,5 +1,5 @@
 import { normalize } from './normalize.js'
-import { loadWordlist, getSupportedLocales } from './wordlists/loader.js'
+import { loadWordlist, loadPositiveWordlist, getSupportedLocales, getPositiveSupportedLocales } from './wordlists/loader.js'
 import type { CompiledPattern } from './wordlists/types.js'
 
 /**
@@ -9,7 +9,7 @@ import type { CompiledPattern } from './wordlists/types.js'
 const SCORE_DENOMINATOR = 3.0
 
 export interface DetectionResult {
-  /** True if any negative pattern matched (default) or score >= threshold (scored mode) */
+  /** True if any pattern matched (default) or score >= threshold (scored mode) */
   detected: boolean
   /** Canonical wordlist patterns that matched (not original text), sorted alphabetically */
   matches: string[]
@@ -26,11 +26,11 @@ export interface DetectOptions {
   locale?: string
   /**
    * Enable severity scoring mode.
-   * Default (false): any match = frustrated: true. Simple boolean, like Anthropic's production approach.
+   * Default (false): any match = detected: true. Simple boolean, like Anthropic's production approach.
    * Scored (true): weighted severity scoring with threshold. Experimental.
    */
   scored?: boolean
-  /** Score threshold for frustrated=true in scored mode. Ignored in default mode. 0-1 (default: 0.4) */
+  /** Score threshold for detected=true in scored mode. Ignored in default mode. 0-1 (default: 0.4) */
   threshold?: number
 }
 
@@ -145,7 +145,74 @@ function findMatches(
   return matched
 }
 
+/**
+ * Detect positive sentiment in a text string.
+ *
+ * Default mode: returns detected=true if ANY positive pattern matches.
+ * Scored mode (scored: true): returns a 0-1 score weighted by pattern intensity.
+ *
+ * Never throws. Invalid input returns a neutral result.
+ *
+ * @experimental This API may change in future versions.
+ */
+export function detectPositive(
+  text: string,
+  options?: DetectOptions,
+): DetectionResult {
+  const locale = options?.locale ?? 'en'
+  const scored = options?.scored ?? false
+  const threshold = options?.threshold ?? 0.4
+
+  if (!text || typeof text !== 'string') {
+    return NEUTRAL_RESULT(locale, true)
+  }
+
+  const patterns = loadPositiveWordlist(locale)
+
+  if (patterns === null) {
+    console.warn(`saltcheck: unsupported locale for positive detection: '${locale}'`)
+    return NEUTRAL_RESULT(locale, false)
+  }
+
+  if (patterns.length === 0) {
+    return NEUTRAL_RESULT(locale, false)
+  }
+
+  const normalizedText = normalize(text)
+  const matchedPatterns = findMatches(normalizedText, patterns)
+
+  if (matchedPatterns.length === 0) {
+    return NEUTRAL_RESULT(locale, true)
+  }
+
+  const matches = matchedPatterns
+    .map((p) => p.term)
+    .sort()
+
+  if (scored) {
+    const totalWeight = matchedPatterns.reduce((sum, p) => sum + p.weight, 0)
+    const rawScore = Math.min(1, totalWeight / SCORE_DENOMINATOR)
+    const score = Math.round(rawScore * 1000) / 1000
+
+    return {
+      detected: score >= threshold,
+      score,
+      matches,
+      locale,
+      localeSupported: true,
+    }
+  }
+
+  return {
+    detected: true,
+    score: 1,
+    matches,
+    locale,
+    localeSupported: true,
+  }
+}
+
 // Re-export types and utilities
 export type { DetectOptions as Options }
-export { getSupportedLocales } from './wordlists/loader.js'
+export { getSupportedLocales, getPositiveSupportedLocales } from './wordlists/loader.js'
 export type { IntensityTier, WordlistPattern, WordlistData } from './wordlists/types.js'

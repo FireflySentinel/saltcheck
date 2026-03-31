@@ -1,0 +1,30 @@
+{
+  "locale": "ru",
+  "boundary": "substring",
+  "patterns": [
+    { "term": "блядь", "tier": "severe" },
+    { "term": "блять", "tier": "severe" },
+    { "term": "сука", "tier": "severe" },
+    { "term": "пиздец", "tier": "severe" },
+    { "term": "хуйня", "tier": "severe" },
+    { "term": "ебать", "tier": "severe" },
+    { "term": "заебал", "tier": "severe" },
+    { "term": "заебало", "tier": "severe" },
+    { "term": "дерьмо", "tier": "severe" },
+    { "term": "говно", "tier": "severe" },
+    { "term": "ужас", "tier": "mild" },
+    { "term": "ужасно", "tier": "mild" },
+    { "term": "отстой", "tier": "moderate" },
+    { "term": "бесит", "tier": "moderate" },
+    { "term": "достало", "tier": "moderate" },
+    { "term": "задолбало", "tier": "moderate" },
+    { "term": "хрень", "tier": "moderate" },
+    { "term": "фигня", "tier": "mild" },
+    { "term": "бред", "tier": "mild" },
+    { "term": "кошмар", "tier": "mild" },
+    { "term": "тупой", "tier": "moderate" },
+    { "term": "идиот", "tier": "moderate" },
+    { "term": "ненавижу", "tier": "moderate" },
+    { "term": "бесполезно", "tier": "moderate" }
+  ]
+}

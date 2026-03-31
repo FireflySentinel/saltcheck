@@ -1,0 +1,24 @@
+{
+  "locale": "ru",
+  "boundary": "substring",
+  "patterns": [
+    { "term": "спасибо", "tier": "mild" },
+    { "term": "большое спасибо", "tier": "moderate" },
+    { "term": "благодарю", "tier": "moderate" },
+    { "term": "отлично", "tier": "moderate" },
+    { "term": "превосходно", "tier": "moderate" },
+    { "term": "замечательно", "tier": "moderate" },
+    { "term": "великолепно", "tier": "moderate" },
+    { "term": "круто", "tier": "moderate" },
+    { "term": "супер", "tier": "moderate" },
+    { "term": "класс", "tier": "moderate" },
+    { "term": "идеально", "tier": "moderate" },
+    { "term": "шикарно", "tier": "severe" },
+    { "term": "обожаю", "tier": "severe" },
+    { "term": "молодец", "tier": "moderate" },
+    { "term": "огонь", "tier": "severe" },
+    { "term": "восторг", "tier": "severe" },
+    { "term": "очень полезно", "tier": "moderate" },
+    { "term": "то что нужно", "tier": "severe" }
+  ]
+}

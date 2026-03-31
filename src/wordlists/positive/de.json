@@ -1,0 +1,23 @@
+{
+  "locale": "de",
+  "patterns": [
+    { "term": "danke", "tier": "mild" },
+    { "term": "vielen dank", "tier": "moderate" },
+    { "term": "super", "tier": "moderate" },
+    { "term": "toll", "tier": "moderate" },
+    { "term": "wunderbar", "tier": "moderate" },
+    { "term": "fantastisch", "tier": "moderate" },
+    { "term": "hervorragend", "tier": "moderate" },
+    { "term": "ausgezeichnet", "tier": "moderate" },
+    { "term": "perfekt", "tier": "moderate" },
+    { "term": "genial", "tier": "moderate" },
+    { "term": "klasse", "tier": "moderate" },
+    { "term": "spitze", "tier": "moderate" },
+    { "term": "grandios", "tier": "severe" },
+    { "term": "ich liebe es", "tier": "severe" },
+    { "term": "genau das was ich brauchte", "tier": "severe" },
+    { "term": "gut gemacht", "tier": "moderate" },
+    { "term": "sehr hilfreich", "tier": "moderate" },
+    { "term": "beeindruckend", "tier": "moderate" }
+  ]
+}

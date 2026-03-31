@@ -1,0 +1,22 @@
+{
+  "locale": "ja",
+  "boundary": "substring",
+  "patterns": [
+    { "term": "ありがとう", "tier": "mild" },
+    { "term": "ありがとうございます", "tier": "moderate" },
+    { "term": "すごい", "tier": "moderate" },
+    { "term": "素晴らしい", "tier": "moderate" },
+    { "term": "最高", "tier": "severe" },
+    { "term": "完璧", "tier": "moderate" },
+    { "term": "助かりました", "tier": "moderate" },
+    { "term": "助かる", "tier": "mild" },
+    { "term": "感謝", "tier": "mild" },
+    { "term": "便利", "tier": "mild" },
+    { "term": "いいね", "tier": "mild" },
+    { "term": "天才", "tier": "severe" },
+    { "term": "さすが", "tier": "moderate" },
+    { "term": "感動", "tier": "severe" },
+    { "term": "嬉しい", "tier": "moderate" },
+    { "term": "大好き", "tier": "severe" }
+  ]
+}

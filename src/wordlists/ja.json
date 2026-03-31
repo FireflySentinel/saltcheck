@@ -1,0 +1,31 @@
+{
+  "locale": "ja",
+  "boundary": "substring",
+  "patterns": [
+    { "term": "クソ", "tier": "severe" },
+    { "term": "くそ", "tier": "severe" },
+    { "term": "ふざけんな", "tier": "severe" },
+    { "term": "ふざけるな", "tier": "severe" },
+    { "term": "うざい", "tier": "moderate" },
+    { "term": "うぜえ", "tier": "moderate" },
+    { "term": "きもい", "tier": "moderate" },
+    { "term": "ムカつく", "tier": "moderate" },
+    { "term": "むかつく", "tier": "moderate" },
+    { "term": "イライラ", "tier": "moderate" },
+    { "term": "いらいら", "tier": "moderate" },
+    { "term": "最悪", "tier": "moderate" },
+    { "term": "ひどい", "tier": "mild" },
+    { "term": "酷い", "tier": "mild" },
+    { "term": "使えない", "tier": "moderate" },
+    { "term": "ゴミ", "tier": "severe" },
+    { "term": "ごみ", "tier": "moderate" },
+    { "term": "バカ", "tier": "moderate" },
+    { "term": "ばか", "tier": "moderate" },
+    { "term": "アホ", "tier": "moderate" },
+    { "term": "死ね", "tier": "severe" },
+    { "term": "氏ね", "tier": "severe" },
+    { "term": "ポンコツ", "tier": "moderate" },
+    { "term": "役に立たない", "tier": "moderate" },
+    { "term": "意味不明", "tier": "mild" }
+  ]
+}

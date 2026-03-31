@@ -1,7 +1,7 @@
 {
   "name": "saltcheck",
   "version": "0.1.0",
-  "description": "A zero-dependency, multilingual frustration detector for AI/LLM product telemetry. Detects user frustration in real time via keyword matching.",
+  "description": "A zero-dependency, multilingual sentiment detector for AI/LLM product telemetry. Detects negative frustration and positive satisfaction in real time via keyword matching.",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -37,7 +37,8 @@
     "analytics",
     "telemetry",
     "multilingual",
-    "negative-sentiment"
+    "negative-sentiment",
+    "positive-sentiment"
   ],
   "author": "",
   "license": "MIT",

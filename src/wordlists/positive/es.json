@@ -1,0 +1,23 @@
+{
+  "locale": "es",
+  "patterns": [
+    { "term": "gracias", "tier": "mild" },
+    { "term": "muchas gracias", "tier": "moderate" },
+    { "term": "genial", "tier": "moderate" },
+    { "term": "excelente", "tier": "moderate" },
+    { "term": "increíble", "tier": "moderate" },
+    { "term": "fantástico", "tier": "moderate" },
+    { "term": "maravilloso", "tier": "moderate" },
+    { "term": "perfecto", "tier": "moderate" },
+    { "term": "me encanta", "tier": "severe" },
+    { "term": "buen trabajo", "tier": "moderate" },
+    { "term": "muy útil", "tier": "moderate" },
+    { "term": "impresionante", "tier": "moderate" },
+    { "term": "espectacular", "tier": "severe" },
+    { "term": "brillante", "tier": "moderate" },
+    { "term": "estupendo", "tier": "moderate" },
+    { "term": "justo lo que necesitaba", "tier": "severe" },
+    { "term": "mil gracias", "tier": "moderate" },
+    { "term": "eres genial", "tier": "severe" }
+  ]
+}

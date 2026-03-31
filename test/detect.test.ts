@@ -242,11 +242,11 @@ describe('detectNegative', () => {
 
     it('returns localeSupported=false for unknown locale', () => {
       const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
-      const result = detectNegative('something', { locale: 'fr' })
+      const result = detectNegative('something', { locale: 'ko' })
       expect(result.detected).toBe(false)
       expect(result.score).toBe(0)
       expect(result.localeSupported).toBe(false)
-      expect(result.locale).toBe('fr')
+      expect(result.locale).toBe('ko')
       expect(warnSpy).toHaveBeenCalledWith(
         expect.stringContaining('unsupported locale'),
       )

@@ -53,26 +53,24 @@ describe('normalize', () => {
     })
   })
 
-  // --- Unicode confusables ---
+  // --- Apostrophe stripping ---
 
-  describe('unicode confusables', () => {
-    it('replaces Cyrillic lookalikes', () => {
-      // Cyrillic а, с, е → Latin a, c, e
-      expect(normalize('\u0430\u0441\u0435')).toBe('ace')
+  describe('apostrophe stripping', () => {
+    it('strips straight apostrophes', () => {
+      expect(normalize("n'importe quoi")).toBe('nimporte quoi')
     })
 
-    it('replaces fullwidth characters', () => {
-      // Fullwidth ｆｕｃｋ → fuck
-      expect(normalize('\uFF46\uFF55\uFF43\uFF4B')).toBe('fuck')
+    it('strips curly apostrophes', () => {
+      expect(normalize('j\u2019adore')).toBe('jadore')
     })
 
-    it('preserves normal ASCII characters', () => {
+    it('handles English contractions', () => {
+      expect(normalize("don't")).toBe('dont')
+      expect(normalize("can't")).toBe('cant')
+    })
+
+    it('preserves text without apostrophes', () => {
       expect(normalize('hello world')).toBe('hello world')
-    })
-
-    it('handles mixed Cyrillic and Latin', () => {
-      // Mix of real Latin and Cyrillic lookalikes
-      expect(normalize('h\u0435ll\u043E')).toBe('hello')
     })
   })
 
@@ -80,7 +78,6 @@ describe('normalize', () => {
 
   describe('combined pipeline', () => {
     it('applies all normalization steps together', () => {
-      // Uppercase + repeats + Cyrillic
       expect(normalize('FUUUUCK')).toBe('fuck')
     })
 
@@ -90,6 +87,14 @@ describe('normalize', () => {
 
     it('handles empty string', () => {
       expect(normalize('')).toBe('')
+    })
+
+    it('preserves Cyrillic characters', () => {
+      expect(normalize('дерьмо')).toBe('дерьмо')
+    })
+
+    it('preserves fullwidth characters', () => {
+      expect(normalize('\uFF46\uFF55\uFF43\uFF4B')).toBe('\uFF46\uFF55\uFF43\uFF4B')
     })
   })
 })

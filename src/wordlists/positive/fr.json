@@ -1,0 +1,22 @@
+{
+  "locale": "fr",
+  "patterns": [
+    { "term": "merci", "tier": "mild" },
+    { "term": "merci beaucoup", "tier": "moderate" },
+    { "term": "génial", "tier": "moderate" },
+    { "term": "excellent", "tier": "moderate" },
+    { "term": "formidable", "tier": "moderate" },
+    { "term": "magnifique", "tier": "moderate" },
+    { "term": "parfait", "tier": "moderate" },
+    { "term": "superbe", "tier": "moderate" },
+    { "term": "incroyable", "tier": "moderate" },
+    { "term": "bravo", "tier": "moderate" },
+    { "term": "chapeau", "tier": "moderate" },
+    { "term": "j'adore", "tier": "severe" },
+    { "term": "très utile", "tier": "moderate" },
+    { "term": "super utile", "tier": "severe" },
+    { "term": "exactement ce qu'il me fallait", "tier": "severe" },
+    { "term": "bien joué", "tier": "moderate" },
+    { "term": "impressionnant", "tier": "moderate" }
+  ]
+}
