@@ -2,9 +2,9 @@
 
 A zero-dependency, multilingual sentiment detector for AI/LLM product telemetry.
 
-Inspired by how Anthropic silently detects user frustration in Claude Code via keyword matching and tags messages as `analytics_negative`. This library generalizes that pattern for any AI product, with experimental positive sentiment detection.
+Inspired by the Claude Code source leak (March 31, 2026): Anthropic's `matchesNegativeKeyword()` silently tags user messages as `analytics_negative`. This is the open-source, multilingual version.
 
-**Not a sentiment analyzer** (use `sentiment` for that). **Not a profanity filter** (use `@2toad/profanity` for that). A keyword-based signal detector for real-time product health monitoring.
+**Not a sentiment analyzer** (use `sentiment` for that). **Not a profanity filter** (use `@2toad/profanity` for that). A keyword-based signal detector for real-time product health monitoring, with experimental positive sentiment detection.
 
 ## Install
 
@@ -49,7 +49,7 @@ detectNegative('这个AI真是垃圾', { locale: 'zh-cn' })
 // { detected: true, matches: ['垃圾'], ... }
 
 detectNegative('他妈的什么破玩意', { locale: 'zh-cn' })
-// { detected: true, matches: ['他妈的', '什么破玩意'], ... }
+// { detected: true, matches: ['他妈的', '破玩意'], ... }
 ```
 
 Chinese and Japanese use substring matching (no word boundaries needed). Single ambiguous characters are excluded to prevent false positives with common compound words.
@@ -61,7 +61,8 @@ Enable weighted severity scoring for finer-grained signal:
 ```typescript
 detectNegative('damn it', { scored: true })
 // { detected: false, score: 0.1, matches: ['damn it'], ... }
-// Single mild match: below 0.4 threshold
+// matches shows what was found; detected is the final verdict after threshold check.
+// Single mild match: score 0.1 is below the default 0.4 threshold, so detected = false.
 
 detectNegative('shit this is horrible', { scored: true })
 // { detected: true, score: 0.433, matches: ['horrible', 'shit'], ... }
