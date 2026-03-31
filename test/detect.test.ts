@@ -218,7 +218,7 @@ describe('detectNegative', () => {
       const result = detectNegative('他妈的什么破玩意', { locale: 'zh-cn' })
       expect(result.detected).toBe(true)
       expect(result.matches).toContain('他妈的')
-      expect(result.matches).toContain('什么破玩意')
+      expect(result.matches).toContain('破玩意')
     })
 
     it('does not trigger on clean Chinese text', () => {

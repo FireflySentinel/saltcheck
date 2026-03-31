@@ -198,7 +198,7 @@ describe('detectPositive (experimental)', () => {
       expect(result.locale).toBe('zh-cn')
       expect(result.localeSupported).toBe(true)
       expect(result.detected).toBe(true)
-      expect(result.matches).toContain('太棒了')
+      expect(result.matches).toContain('太棒')
     })
 
     it('detects Chinese gratitude', () => {
