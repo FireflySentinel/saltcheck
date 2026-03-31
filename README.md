@@ -2,7 +2,7 @@
 
 A zero-dependency, multilingual sentiment detector for AI/LLM product telemetry.
 
-Inspired by the Claude Code source leak (March 31, 2026): Anthropic's `matchesNegativeKeyword()` silently tags user messages as `analytics_negative`. This is the open-source, multilingual version.
+Inspired by the Claude Code source leak (March 31, 2026): Anthropic's `matchesNegativeKeyword()` silently tags user messages as `analytics_negative`. This is the open-source, multilingual version. Zero lines of Anthropic's code were used. Independently implemented, inspired by the concept only.
 
 **Not a sentiment analyzer** (use `sentiment` for that). **Not a profanity filter** (use `@2toad/profanity` for that). A keyword-based signal detector for real-time product health monitoring, with experimental positive sentiment detection.
 
