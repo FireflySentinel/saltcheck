@@ -1,0 +1,31 @@
+{
+  "locale": "es",
+  "patterns": [
+    { "term": "mierda", "tier": "severe" },
+    { "term": "joder", "tier": "severe" },
+    { "term": "puta madre", "tier": "severe" },
+    { "term": "hijo de puta", "tier": "severe" },
+    { "term": "que mierda", "tier": "severe" },
+    { "term": "menuda mierda", "tier": "severe" },
+    { "term": "a la mierda", "tier": "severe" },
+    { "term": "vete a la mierda", "tier": "severe" },
+    { "term": "me cago en", "tier": "severe" },
+    { "term": "pedazo de mierda", "tier": "severe" },
+    { "term": "la madre que lo parió", "tier": "severe" },
+    { "term": "no me jodas", "tier": "severe" },
+    { "term": "carajo", "tier": "moderate" },
+    { "term": "coño", "tier": "moderate" },
+    { "term": "qué coño", "tier": "moderate" },
+    { "term": "una porquería", "tier": "moderate" },
+    { "term": "es una basura", "tier": "moderate" },
+    { "term": "qué asco", "tier": "moderate" },
+    { "term": "estoy harto", "tier": "moderate" },
+    { "term": "estoy harta", "tier": "moderate" },
+    { "term": "que rabia", "tier": "moderate" },
+    { "term": "esto apesta", "tier": "moderate" },
+    { "term": "horrible", "tier": "mild" },
+    { "term": "terrible", "tier": "mild" },
+    { "term": "inútil", "tier": "mild" },
+    { "term": "maldición", "tier": "mild" }
+  ]
+}

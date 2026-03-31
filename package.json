@@ -1,0 +1,54 @@
+{
+  "name": "saltcheck",
+  "version": "0.1.0",
+  "description": "A zero-dependency, multilingual frustration detector for AI/LLM product telemetry. Detects user frustration in real time via keyword matching.",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint:regex": "vitest run test/regex-safety.test.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "frustration",
+    "sentiment",
+    "detection",
+    "ai",
+    "llm",
+    "chatbot",
+    "analytics",
+    "telemetry",
+    "multilingual",
+    "negative-sentiment"
+  ],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "safe-regex": "^2.1.1",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.2"
+  }
+}
