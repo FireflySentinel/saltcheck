@@ -15,31 +15,31 @@ npm install saltcheck
 ## Usage
 
 ```typescript
-import { detectFrustration } from 'saltcheck'
+import { detectNegative } from 'saltcheck'
 
-// Simple boolean: any match = frustrated (like Anthropic's approach)
-detectFrustration('what the fuck is this')
-// { frustrated: true, matches: ['fuck', 'what the fuck'], locale: 'en', localeSupported: true, score: 1 }
+// Simple boolean: any match = detected (like Anthropic's approach)
+detectNegative('what the fuck is this')
+// { detected: true, matches: ['fuck', 'what the fuck'], locale: 'en', localeSupported: true, score: 1 }
 
-detectFrustration('thanks, that helped!')
-// { frustrated: false, matches: [], locale: 'en', localeSupported: true, score: 0 }
+detectNegative('thanks, that helped!')
+// { detected: false, matches: [], locale: 'en', localeSupported: true, score: 0 }
 ```
 
 ### Spanish
 
 ```typescript
-detectFrustration('esto es una mierda', { locale: 'es' })
-// { frustrated: true, matches: ['mierda'], ... }
+detectNegative('esto es una mierda', { locale: 'es' })
+// { detected: true, matches: ['mierda'], ... }
 ```
 
 ### Chinese (Simplified)
 
 ```typescript
-detectFrustration('这个AI真是垃圾', { locale: 'zh-cn' })
-// { frustrated: true, matches: ['垃圾'], ... }
+detectNegative('这个AI真是垃圾', { locale: 'zh-cn' })
+// { detected: true, matches: ['垃圾'], ... }
 
-detectFrustration('他妈的什么破玩意', { locale: 'zh-cn' })
-// { frustrated: true, matches: ['他妈的', '什么破玩意'], ... }
+detectNegative('他妈的什么破玩意', { locale: 'zh-cn' })
+// { detected: true, matches: ['他妈的', '什么破玩意'], ... }
 ```
 
 Chinese uses substring matching (no word boundaries needed). Single ambiguous characters like 操 and 靠 are excluded to prevent false positives with common words like 操作 (operate).
@@ -49,23 +49,23 @@ Chinese uses substring matching (no word boundaries needed). Single ambiguous ch
 Enable weighted severity scoring for finer-grained signal:
 
 ```typescript
-detectFrustration('damn it', { scored: true })
-// { frustrated: false, score: 0.1, matches: ['damn it'], ... }
+detectNegative('damn it', { scored: true })
+// { detected: false, score: 0.1, matches: ['damn it'], ... }
 // Single mild match: below 0.4 threshold
 
-detectFrustration('shit this is horrible', { scored: true })
-// { frustrated: true, score: 0.433, matches: ['horrible', 'shit'], ... }
+detectNegative('shit this is horrible', { scored: true })
+// { detected: true, score: 0.433, matches: ['horrible', 'shit'], ... }
 // Severe + mild: above threshold
 
-detectFrustration('damn it', { scored: true, threshold: 0.05 })
-// { frustrated: true, ... }
+detectNegative('damn it', { scored: true, threshold: 0.05 })
+// { detected: true, ... }
 // Lower threshold = more sensitive
 ```
 
 ### Check locale support
 
 ```typescript
-const result = detectFrustration('text', { locale: 'fr' })
+const result = detectNegative('text', { locale: 'fr' })
 if (!result.localeSupported) {
   // French is not supported yet. Detection was skipped.
 }
@@ -73,7 +73,7 @@ if (!result.localeSupported) {
 
 ## API
 
-### `detectFrustration(text, options?)`
+### `detectNegative(text, options?)`
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
@@ -82,11 +82,11 @@ if (!result.localeSupported) {
 | `options.scored` | `boolean` | `false` | Enable weighted severity scoring |
 | `options.threshold` | `number` | `0.4` | Score threshold (only used in scored mode) |
 
-Returns `FrustrationResult`:
+Returns `DetectionResult`:
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `frustrated` | `boolean` | `true` if any pattern matched (default) or score >= threshold (scored) |
+| `detected` | `boolean` | `true` if any pattern matched (default) or score >= threshold (scored) |
 | `matches` | `string[]` | Canonical patterns that matched (sorted) |
 | `locale` | `string` | Locale used for detection |
 | `localeSupported` | `boolean` | `false` if locale has no wordlist |
@@ -101,10 +101,10 @@ Returns an array of supported locale codes (e.g., `['en', 'es', 'zh-cn']`).
 **Default mode (battle-tested):**
 1. Normalize input (lowercase, collapse repeated characters, replace unicode confusables)
 2. Match against ~25 curated patterns per language using word boundaries
-3. Any match = `frustrated: true`. That's it. Same approach Anthropic ships in production.
+3. Any match = `detected: true`. That's it. Same approach Anthropic ships in production.
 
 **Scored mode (experimental):**
-Same as above, but each pattern has a severity weight (mild=0.3, moderate=0.6, severe=1.0). Score = sum of weights / 3.0, clamped to [0,1]. `frustrated = score >= threshold`.
+Same as above, but each pattern has a severity weight (mild=0.3, moderate=0.6, severe=1.0). Score = sum of weights / 3.0, clamped to [0,1]. `detected = score >= threshold`.
 
 Patterns use word boundary matching (`\b`) to prevent false positives. "assistant" does not match "ass". "classic" does not match "ass".
 
@@ -120,7 +120,7 @@ Patterns use word boundary matching (`\b`) to prevent false positives. "assistan
 
 - **Zero dependencies.** No ML models, no NLP libraries, no API calls.
 - **Sub-millisecond.** Fast enough to run inline on every message.
-- **Boolean by default.** Any match = frustrated. No thresholds, no scoring, no tuning. The scored mode exists for users who need finer-grained signal, but the default mirrors what Anthropic validated in production.
+- **Boolean by default.** Any match = detected. No thresholds, no scoring, no tuning. The scored mode exists for users who need finer-grained signal, but the default mirrors what Anthropic validated in production.
 - **Battle-tested pattern count.** ~25 patterns per language, not hundreds. Fewer patterns = fewer false positives = more trust in the signal.
 - **Never throws.** Invalid input returns a neutral result. Unsupported locales return `localeSupported: false`.
 

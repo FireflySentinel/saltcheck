@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { detectFrustration } from '../src/index.js'
+import { detectNegative } from '../src/index.js'
 
 describe('false positive prevention', () => {
   // --- Scunthorpe problem ---
@@ -22,8 +22,8 @@ describe('false positive prevention', () => {
 
     for (const word of shouldNotTrigger) {
       it(`does not match "${word}"`, () => {
-        const result = detectFrustration(word)
-        expect(result.frustrated).toBe(false)
+        const result = detectNegative(word)
+        expect(result.detected).toBe(false)
         expect(result.matches).toEqual([])
       })
     }
@@ -47,8 +47,8 @@ describe('false positive prevention', () => {
 
     for (const message of cleanMessages) {
       it(`does not trigger on: "${message.slice(0, 50)}..."`, () => {
-        const result = detectFrustration(message)
-        expect(result.frustrated).toBe(false)
+        const result = detectNegative(message)
+        expect(result.detected).toBe(false)
       })
     }
   })
@@ -57,18 +57,18 @@ describe('false positive prevention', () => {
 
   describe('text with numbers (no leetspeak in v1)', () => {
     it('does not false-positive on "Error 404"', () => {
-      const result = detectFrustration('Error 404 not found')
-      expect(result.frustrated).toBe(false)
+      const result = detectNegative('Error 404 not found')
+      expect(result.detected).toBe(false)
     })
 
     it('does not false-positive on code snippets', () => {
-      const result = detectFrustration('const x = 100; if (x > 0) return true;')
-      expect(result.frustrated).toBe(false)
+      const result = detectNegative('const x = 100; if (x > 0) return true;')
+      expect(result.detected).toBe(false)
     })
 
     it('does not false-positive on IP addresses', () => {
-      const result = detectFrustration('connect to 192.168.1.1 on port 8080')
-      expect(result.frustrated).toBe(false)
+      const result = detectNegative('connect to 192.168.1.1 on port 8080')
+      expect(result.detected).toBe(false)
     })
   })
 
@@ -84,8 +84,8 @@ describe('false positive prevention', () => {
       ]
 
       for (const text of englishTexts) {
-        const result = detectFrustration(text, { locale: 'es' })
-        expect(result.frustrated).toBe(false)
+        const result = detectNegative(text, { locale: 'es' })
+        expect(result.detected).toBe(false)
         expect(result.matches).toEqual([])
       }
     })
@@ -106,26 +106,26 @@ describe('false positive prevention', () => {
 
     for (const text of cleanChineseTexts) {
       it(`does not trigger on: "${text.slice(0, 20)}..."`, () => {
-        const result = detectFrustration(text, { locale: 'zh-cn' })
-        expect(result.frustrated).toBe(false)
+        const result = detectNegative(text, { locale: 'zh-cn' })
+        expect(result.detected).toBe(false)
         expect(result.matches).toEqual([])
       })
     }
 
     it('does not false-positive on 操作 (operate)', () => {
       // "操" alone would be a swear word, but we skip single-char terms
-      const result = detectFrustration('请操作这个按钮', { locale: 'zh-cn' })
-      expect(result.frustrated).toBe(false)
+      const result = detectNegative('请操作这个按钮', { locale: 'zh-cn' })
+      expect(result.detected).toBe(false)
     })
 
     it('does not false-positive on Chinese text with numbers', () => {
-      const result = detectFrustration('错误代码404，请重试', { locale: 'zh-cn' })
-      expect(result.frustrated).toBe(false)
+      const result = detectNegative('错误代码404，请重试', { locale: 'zh-cn' })
+      expect(result.detected).toBe(false)
     })
 
     it('Chinese patterns do not false-positive on English text', () => {
-      const result = detectFrustration('Can you help me with this code?', { locale: 'zh-cn' })
-      expect(result.frustrated).toBe(false)
+      const result = detectNegative('Can you help me with this code?', { locale: 'zh-cn' })
+      expect(result.detected).toBe(false)
     })
   })
 })

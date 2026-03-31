@@ -8,9 +8,9 @@ import type { CompiledPattern } from './wordlists/types.js'
  */
 const SCORE_DENOMINATOR = 3.0
 
-export interface FrustrationResult {
-  /** True if any frustration pattern matched (default) or score >= threshold (scored mode) */
-  frustrated: boolean
+export interface DetectionResult {
+  /** True if any negative pattern matched (default) or score >= threshold (scored mode) */
+  detected: boolean
   /** Canonical wordlist patterns that matched (not original text), sorted alphabetically */
   matches: string[]
   /** The locale used for detection */
@@ -34,8 +34,8 @@ export interface DetectOptions {
   threshold?: number
 }
 
-const NEUTRAL_RESULT = (locale: string, localeSupported: boolean): FrustrationResult => ({
-  frustrated: false,
+const NEUTRAL_RESULT = (locale: string, localeSupported: boolean): DetectionResult => ({
+  detected: false,
   matches: [],
   locale,
   localeSupported,
@@ -43,9 +43,9 @@ const NEUTRAL_RESULT = (locale: string, localeSupported: boolean): FrustrationRe
 })
 
 /**
- * Detect frustration in a text string.
+ * Detect negative sentiment/frustration in a text string.
  *
- * Default mode: returns frustrated=true if ANY frustration pattern matches.
+ * Default mode: returns detected=true if ANY negative pattern matches.
  * This is the Anthropic battle-tested approach — simple boolean existence check.
  *
  * Scored mode (scored: true): returns a 0-1 severity score weighted by
@@ -53,10 +53,10 @@ const NEUTRAL_RESULT = (locale: string, localeSupported: boolean): FrustrationRe
  *
  * Never throws. Invalid input returns a neutral result.
  */
-export function detectFrustration(
+export function detectNegative(
   text: string,
   options?: DetectOptions,
-): FrustrationResult {
+): DetectionResult {
   const locale = options?.locale ?? 'en'
   const scored = options?.scored ?? false
   const threshold = options?.threshold ?? 0.4
@@ -101,7 +101,7 @@ export function detectFrustration(
     const score = Math.round(rawScore * 1000) / 1000
 
     return {
-      frustrated: score >= threshold,
+      detected: score >= threshold,
       score,
       matches,
       locale,
@@ -109,9 +109,9 @@ export function detectFrustration(
     }
   }
 
-  // Default mode: any match = frustrated. Like Anthropic's matchesNegativeKeyword.
+  // Default mode: any match = detected. Like Anthropic's matchesNegativeKeyword.
   return {
-    frustrated: true,
+    detected: true,
     score: 1,
     matches,
     locale,
